@@ -12,42 +12,29 @@
 
 #include "philo.h"
 
-int	mails = 0;
-pthread_mutex_t	mutex;
+int primes[10] = {2, 3, 5, 7, 11, 13, 17, 23, 29};
 
-void	*routine()
+void *routine(void *arg)
 {
-	for (int i = 0; i < 10000000; i++)
-	{
-		pthread_mutex_lock(&mutex);
-		mails++;
-		pthread_mutex_unlock(&mutex);
-	}
+	int index = *(int *)arg;
+	printf("%d ", primes[index]);
+	free(arg);
 }
 
 int	main(int ac, char **av)
 {
-	pthread_t	th[4];
-	int	i;
-	pthread_mutex_init(&mutex, NULL);
-
-	for(i = 0; i < 4; i++)
+	pthread_t th[10];
+	int i;
+	for (i = 0; i < 10; i++)
 	{
-		if (pthread_create(th + i, NULL, &routine, NULL) != 0)
-		{
-			perror("Failed to creat thread");
-			return 1;
-		}
-		printf("Thread %d has started\n", i);
-	// }
-	// for(i = 0; i < 4; i++)
-	// {
-		if (pthread_join(th[i], NULL) != 0)
-			return 2;
-		printf("Thread %d has finished\n", i);
+		int *a = malloc(sizeof(int));
+		*a = i;
+		if (pthread_create(&th[i], NULL, &routine, a) != 0 )
+			perror("Faild to create thread");
 	}
-	pthread_mutex_destroy(&mutex);
-	printf("Number of mails: %d\n", mails);
+	for (i = 0; i < 10; i++)
+		if (pthread_join(th[i], NULL) != 0 )
+			perror("Faild to join thread");
 	return (0);
 }
 
@@ -173,4 +160,28 @@ pthread_mutex_destroy(&mutex);
 It will solve Race Conditions problem
 Mutex protect your code that executes t1 from others t
 
+------------------------------------
+
+Get return value N6
+
+In void function we need allocate(deallocate) our result by malloc
+
+------------------------------------
+
+Pass arguments to threads N7
+
+Main t			t1			t2
+i = 0			created		created 
+i = 1			i is 0		i is 1
+				print 2		print 3
+
+If t2 started right after t1
+Main t			t1			t2
+i = 0			created		created 
+i = 1			i is 1		i is 1
+				print 3		print 3
+
+------------------------------------
+
+N8 - 19
 */
