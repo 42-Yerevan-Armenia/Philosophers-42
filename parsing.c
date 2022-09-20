@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   utils.c                                            :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arakhurs <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/05 17:20:09 by arakhurs          #+#    #+#             */
-/*   Updated: 2022/09/05 17:20:10 by arakhurs         ###   ########.fr       */
+/*   Created: 2022/09/20 16:31:22 by arakhurs          #+#    #+#             */
+/*   Updated: 2022/09/20 16:31:23 by arakhurs         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,4 +61,31 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	return (res * j);
+}
+
+int	args(int ac, char **av, struct s_state *s)
+{
+	if (ac < 5 || ac > 6)
+		ft_error("❌ ./philo 4️⃣  or 5️⃣  arguments");
+	s->nb = ft_atoi(av[1]);
+	if (s->nb < 1 || s->nb > 200)
+		ft_error("❌ Wrong number of philosophers 🏛");
+	s->time_to_die = ft_atoi(av[2]);
+	if (s->time_to_die <= 0)
+		ft_error("❌ Time to die ☠️");
+	s->time_to_eat = ft_atoi(av[3]);
+	if (s->time_to_eat <= 0)
+		ft_error("❌ Time to eat 🍽");
+	s->time_to_sleep = ft_atoi (av[4]);
+	if (s->time_to_sleep <= 0)
+		ft_error("❌ Time to sleep 💤");
+	if (ac == 6)
+	{
+		s->nb_eat = ft_atoi(av[5]);
+		if (s->nb_eat <= 0)
+			ft_error("Wrong number of fruits");
+	}
+	else
+		s->nb_eat = -1;
+	return (0);
 }
