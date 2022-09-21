@@ -41,7 +41,7 @@ t_philo	**philosophers(struct s_state *s)
 	philo = (t_philo **)malloc(sizeof(t_philo) * (s->nb + 1));
 	s->fork = malloc(sizeof(pthread_mutex_t) * s->nb);
 	if (!philo || !(s->fork))
-		exit(0);
+		return (0);
 	philo[s->nb] = 0;
 	if (pthread_mutex_init(&waiting, NULL) != 0)
 		ft_error("❌ Mutex not initialized ⚠️");

@@ -44,7 +44,7 @@ struct s_state
 };
 
 //Parsing ♻️
-void		ft_error(char *str);
+int			ft_error(char *str);
 int			ft_atoi(const char *str);
 int			args(int ac, char **av, struct s_state *s);
 

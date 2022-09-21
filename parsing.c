@@ -27,14 +27,15 @@ size_t	ft_strlen(const char *str)
 	return (i);
 }
 
-void	ft_error(char *str)
+int	ft_error(char *str)
 {
 	if (str && *str)
 	{
 		write(2, str, ft_strlen(str));
 		write(2, "\n", 1);
-		exit(EXIT_FAILURE);
+		return (1);
 	}
+	return (0);
 }
 
 int	ft_atoi(const char *str)
@@ -66,24 +67,24 @@ int	ft_atoi(const char *str)
 int	args(int ac, char **av, struct s_state *s)
 {
 	if (ac < 5 || ac > 6)
-		ft_error("❌ ./philo 4️⃣  or 5️⃣  arguments");
+		return (ft_error("❌ ./philo 4️⃣  or 5️⃣  arguments"));
 	s->nb = ft_atoi(av[1]);
 	if (s->nb < 1 || s->nb > 200)
-		ft_error("❌ Wrong number of philosophers 🏛");
+		return (ft_error("❌ Wrong number of philosophers 🏛"));
 	s->time_to_die = ft_atoi(av[2]);
 	if (s->time_to_die <= 0)
-		ft_error("❌ Time to die ☠️");
+		return (ft_error("❌ Time to die ☠️"));
 	s->time_to_eat = ft_atoi(av[3]);
 	if (s->time_to_eat <= 0)
-		ft_error("❌ Time to eat 🍽");
+		return (ft_error("❌ Time to eat 🍽"));
 	s->time_to_sleep = ft_atoi (av[4]);
 	if (s->time_to_sleep <= 0)
-		ft_error("❌ Time to sleep 💤");
+		return (ft_error("❌ Time to sleep 💤"));
 	if (ac == 6)
 	{
 		s->nb_eat = ft_atoi(av[5]);
 		if (s->nb_eat <= 0)
-			ft_error("Wrong number of fruits");
+			return (ft_error("❌ Wrong number of bananas 🍌"));
 	}
 	else
 		s->nb_eat = -1;
