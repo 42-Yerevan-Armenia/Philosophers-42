@@ -21,19 +21,19 @@
 
 typedef struct s_philo
 {
-	int				id;
-	int				eat_count;
-	int				left_fork;
-	int				right_fork;
-	int				is_dead;
-	long long		born_time;
-	long long		last_meal;
-	pthread_t		thread;
-	pthread_mutex_t	*thinking;
+	int				id;//indexx of philos
+	int				eat_count;//for each philo
+	int				left_fork;//mutex
+	int				right_fork;//mutex
+	int				is_dead;//to break process
+	long long		born_time;//first appearance
+	long long		last_meal;//for each philo
+	pthread_t		thread;//routine
+	pthread_mutex_t	*thinking;//mutex
 	struct s_state	*state;
 }				t_philo;
 
-struct s_state
+struct s_state//args
 {
 	int				nb;
 	int				nb_eat;

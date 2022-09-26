@@ -18,7 +18,7 @@ void	*routine(void *args)
 
 	philo = (t_philo *)args;
 	if (philo->id % 2 != 0)
-		usleep(20000);
+		usleep(20000);//sleep microseconds
 	while (1)
 	{
 		if (eating(philo) == 1)
@@ -40,6 +40,11 @@ int	thread(struct s_state *s, t_philo **philo)
 	pthread_t	dead;
 
 	i = -1;
+//	pthread_create(1, 2, 3, 4)
+//	1->t1 variable &pointer
+//	2->atrubuts, default NULL
+//	3->&function that will be "executed"
+//	4->arguments in &function(), default NULL
 	pthread_create(&dead, NULL, death_check, (void *)philo);
 	while (philo[++i] != 0)
 	{
@@ -48,6 +53,9 @@ int	thread(struct s_state *s, t_philo **philo)
 		if (pthread_create(&(philo[i]->thread), 0, routine, (void *)(philo[i])))
 			return (1);
 	}
+//	pthread_join(1, 2) -> finish "execution"
+//	1->t1 actual struct
+//	2->pointer for result, default NULL
 	pthread_join(dead, NULL);
 	i = -1;
 	while (++i < s->nb)
@@ -58,15 +66,16 @@ int	thread(struct s_state *s, t_philo **philo)
 
 long long	timeset(void)
 {
-	struct timeval	t;
-
-	gettimeofday(&t, NULL);
+	struct timeval	t;//
+	//			time, timezone
+	gettimeofday(&t, NULL);// Jun1 1970 00:00:00
+	//timeval sec from start  ⬆️ microsec from start 
 	return ((t.tv_sec * 1000) + (t.tv_usec / 1000));
 }
 
 void	status(t_philo *philo, char *str)
 {
-	pthread_mutex_lock(philo->thinking);
+	pthread_mutex_lock(philo->thinking);//microsec, philo nb, text
 	printf("%lld %d %s\n", timeset() - philo->born_time, philo->id + 1, str);
 	pthread_mutex_unlock(philo->thinking);
 }

@@ -13,7 +13,7 @@
 #include "philo.h"
 
 static int	fill_philo(t_philo **philo, int i, struct s_state *s, \
-		pthread_mutex_t *thinking)
+		pthread_mutex_t *waiting)
 {
 	philo[i] = (t_philo *)malloc(sizeof(t_philo));
 	if (philo[i] == 0)
@@ -25,7 +25,7 @@ static int	fill_philo(t_philo **philo, int i, struct s_state *s, \
 	philo[i]->born_time = -1;
 	philo[i]->left_fork = i;
 	philo[i]->right_fork = (i + 1) % s->nb;
-	philo[i]->thinking = thinking;
+	philo[i]->thinking = waiting;
 	philo[i]->state = s;
 	if (pthread_mutex_init(&(s->fork[i]), NULL))
 		ft_error("❌ Mutex not initialized❗️");
@@ -65,7 +65,7 @@ void	*death_check(void *args)
 		eat_finish = 0;
 		i = -1;
 		while (++i < philo[0]->state->nb)
-		{
+		{//(fix time - time  when ate last_meal > time_to_die) && (-1 > 0)
 			if (((timeset() - philo[i]->last_meal) > \
 				philo[0]->state->time_to_die) && philo[i]->born_time > 0)
 			{
@@ -85,12 +85,12 @@ int	main(int ac, char **av)
 	struct s_state	state;
 	t_philo			**philo;
 
-	if (args(ac, av, &state) == 0)
+	if (args(ac, av, &state) == 0)//parsing
 	{
-		philo = philosophers(&state);
+		philo = philosophers(&state);//set philos  check it again
 		if (philo == 0)
 			return (0);
-		thread(&state, philo);
+		thread(&state, philo);//start game
 	}
 	return (0);
 }

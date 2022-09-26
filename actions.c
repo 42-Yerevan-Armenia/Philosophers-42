@@ -26,7 +26,7 @@ int	eating(t_philo *philo)
 	status(philo, "is eating 😋");
 	philo->last_meal = timeset();
 	sleeping(philo->state->time_to_eat, philo->state);
-	(philo->eat_count)++;
+	(philo->eat_count)++;//for each philo
 	return (0);
 }
 
