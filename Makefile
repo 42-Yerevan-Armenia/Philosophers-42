@@ -20,7 +20,7 @@ CFLAGS		=	-Wall -Werror -Wextra
 all:		$(NAME)
 
 %.o: %.c $(NAME).h
-	@$(CC) $(FLAGS) -c -o $@ $<
+	@$(CC) $(CFLAGS) -c -o $@ $<
 	@echo "$(BLUE)💡created ➡️  $(SKY)$(notdir $@)$(RESET)"
 $(NAME):	$(OBJS)
 	@$(CC) $(CFLAGS) $(OBJS) -o $(NAME)
