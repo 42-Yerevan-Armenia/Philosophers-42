@@ -1,7 +1,7 @@
 # Philosophers-42
 
 <p align="center">
-    <img src="https://i.redd.it/ob3wlk4d7du31.png">
+    <img src="https://github.com/Aramxxx8691/Git_Images/blob/master/jorno.png">
 </p>
 
 <strong><i>The dining philosophers problem</i></strong> is an example problem often used in concurrent algorithm design to illustrate synchronization issues and techniques for resolving them.
@@ -29,7 +29,7 @@ A philosopher may eat if he can pick up the two forks adjacent to him. One fork 
 
 <p align="center">
   <a href="https://adit.io/posts/2013-05-11-The-Dining-Philosophers-Problem-With-Ron-Swanson.html#deadlock">
-    <img src="https://adit.io/imgs/dining_philosophers/at_the_table.png">
+    <img src="https://github.com/Aramxxx8691/Git_Images/blob/master/philo.png">
   </a>
 </p>
 
